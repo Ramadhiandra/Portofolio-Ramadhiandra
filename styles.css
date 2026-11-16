@@ -11,8 +11,19 @@ html {
 }
 
 body {
-    background-color: #0f172a; /* Warna background gelap utama */
-    color: #f8fafc; /* Warna teks terang */
+    /* Warna dasar biru safir yang lebih kaya & terlihat jelas */
+    background-color: #0e1d35;
+    background-image:
+        /* Pendaran cahaya biru di beberapa titik layar */
+        radial-gradient(circle at 12% 18%, rgba(14, 165, 233, 0.24) 0%, transparent 42%),
+        radial-gradient(circle at 88% 30%, rgba(56, 189, 248, 0.26) 0%, transparent 48%),
+        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.22) 0%, transparent 50%),
+        /* Pola garis grid halus yang jelas terlihat */
+        linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 42px 42px, 42px 42px;
+    background-attachment: fixed;
+    color: #f8fafc;
     overflow-x: hidden;
 }
 
@@ -21,10 +32,10 @@ body {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #0b1629;
 }
 ::-webkit-scrollbar-thumb {
-    background: #1e3a5f;
+    background: #1d4ed8;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -33,16 +44,15 @@ body {
 
 /* --- Styling Navigasi (Kotak Atas Berwarna & Mengikuti Scroll) --- */
 header {
-    background-color: rgba(23, 38, 66, 0.88);
+    background: linear-gradient(90deg, rgba(18, 36, 68, 0.9), rgba(24, 49, 92, 0.88));
     padding: 20px 8%;
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(56, 189, 248, 0.25);
-    box-shadow: 0 4px 20px rgba(2, 6, 23, 0.45);
-    transition: background-color 0.3s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.32);
+    box-shadow: 0 6px 24px rgba(5, 12, 26, 0.45);
 }
 
 nav {
@@ -60,8 +70,8 @@ nav {
 }
 
 .logo span {
-    color: #38bdf8; /* Biru cerah agar kontras & senada */
-    text-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+    color: #38bdf8;
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
 }
 
 .nav-links {
@@ -84,7 +94,6 @@ nav {
     color: #38bdf8;
 }
 
-/* Animasi garis bawah biru saat menu disentuh kursor */
 .nav-links a::after {
     content: '';
     position: absolute;
@@ -92,7 +101,7 @@ nav {
     height: 2px;
     bottom: 0;
     left: 0;
-    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    background: linear-gradient(90deg, #38bdf8, #60a5fa);
     transition: width 0.3s ease;
 }
 
@@ -102,47 +111,92 @@ nav {
 
 /* --- Styling Hero Section --- */
 .hero {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 80px 8%;
     min-height: 80vh;
-    background: radial-gradient(circle at 80% 50%, rgba(56, 189, 248, 0.1), transparent 45%);
+    overflow: hidden;
+}
+
+/* Cahaya Aurora Biru Berdenyut di Latar Belakang Hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: 6%;
+    top: 15%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.32), rgba(37, 99, 235, 0.12) 60%, transparent 75%);
+    filter: blur(45px);
+    z-index: 0;
+    pointer-events: none;
+    animation: auroraPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes auroraPulse {
+    0% {
+        transform: scale(0.95) translate(0, 0);
+        opacity: 0.75;
+    }
+    100% {
+        transform: scale(1.12) translate(-15px, 15px);
+        opacity: 1;
+    }
 }
 
 .hero-text {
     flex: 1;
+    position: relative;
+    z-index: 1;
 }
 
+/* Pill Badge Sapaan dengan Titik Menyala */
 .greeting {
-    color: #38bdf8;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #7dd3fc;
+    background-color: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    padding: 6px 16px;
+    border-radius: 50px;
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
-    letter-spacing: 0.3px;
+}
+
+.greeting::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    background-color: #38bdf8;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #38bdf8;
 }
 
 .hero-text h1 {
     font-size: 3.5rem;
     line-height: 1.2;
     margin-bottom: 10px;
-    color: #f8fafc;
+    color: #ffffff;
 }
 
 .highlight {
-    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    background: linear-gradient(90deg, #38bdf8, #60a5fa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-text h2 {
     font-size: 1.8rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-bottom: 20px;
 }
 
 .description {
-    color: #cbd5e1;
+    color: #e2e8f0;
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 30px;
@@ -152,26 +206,28 @@ nav {
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    color: #0f172a;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 4px 18px rgba(56, 189, 248, 0.35);
     transition: 0.3s;
 }
 
 .btn:hover {
-    background: linear-gradient(135deg, #0284c7, #0369a1);
-    color: white;
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    color: #ffffff;
     transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(56, 189, 248, 0.45);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.55);
 }
 
 .hero-image {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-image img {
@@ -180,40 +236,52 @@ nav {
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid #38bdf8;
-    outline: 2px solid rgba(56, 189, 248, 0.25);
+    outline: 2px solid rgba(56, 189, 248, 0.35);
     outline-offset: 8px;
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
-    transition: transform 0.4s ease, box-shadow 0.4s ease, outline-offset 0.4s ease;
+    box-shadow: 0 0 38px rgba(56, 189, 248, 0.45);
+    animation: melayang 4.5s ease-in-out infinite;
+    transition: box-shadow 0.4s ease, outline-offset 0.4s ease;
 }
 
 .hero-image img:hover {
-    transform: scale(1.03);
+    animation-play-state: paused;
     outline-offset: 12px;
-    box-shadow: 0 0 45px rgba(56, 189, 248, 0.55);
+    box-shadow: 0 0 55px rgba(56, 189, 248, 0.7);
+}
+
+@keyframes melayang {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /* ========================================= */
 /* --- STYLING ABOUT SECTION --- */
 /* ========================================= */
 .about {
-    background-color: #162238; /* Biru slate menengah untuk selang-seling */
+    background: linear-gradient(135deg, rgba(22, 41, 74, 0.82), rgba(16, 31, 58, 0.88));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 80px 8%;
-    border-top: 1px solid rgba(56, 189, 248, 0.12);
-    border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+    border-top: 1px solid rgba(56, 189, 248, 0.22);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.22);
 }
 
 .section-title {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 50px;
-    color: #f8fafc;
+    color: #ffffff;
 }
 
 .section-title span {
-    color: #38bdf8; /* Biru aksen cerah */
+    color: #38bdf8;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
 }
 
-/* Membagi konten menjadi 2 kolom menyamping menggunakan Flexbox */
 .about-content {
     display: flex;
     gap: 50px;
@@ -233,7 +301,7 @@ nav {
 }
 
 .about-text p {
-    color: #cbd5e1;
+    color: #e2e8f0;
     line-height: 1.8;
     margin-bottom: 15px;
 }
@@ -246,53 +314,74 @@ nav {
 }
 
 .skill-item {
-    background-color: rgba(15, 23, 42, 0.85);
-    color: #38bdf8;
+    background-color: rgba(14, 29, 53, 0.75);
+    color: #7dd3fc;
     padding: 10px 20px;
     border-radius: 8px;
     font-weight: bold;
     border: 1px solid rgba(56, 189, 248, 0.45);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(5, 12, 26, 0.25);
     transition: 0.3s;
     cursor: default;
 }
 
 .skill-item:hover {
-    background-color: #38bdf8;
-    color: #0f172a;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: #ffffff;
+    border-color: #7dd3fc;
     transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(56, 189, 248, 0.35);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
 }
 
 /* ========================================= */
 /* --- STYLING PROJECTS SECTION --- */
 /* ========================================= */
 .projects {
-    background-color: #0f172a;
+    background-color: transparent;
     padding: 80px 8%;
 }
 
-/* Membuat susunan kartu otomatis (CSS Grid) */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
-/* Desain Kartu Proyek */
+/* Desain Kartu Proyek dengan Efek Kilau Kaca */
 .project-card {
-    background-color: #162238;
+    position: relative;
+    background: linear-gradient(160deg, rgba(24, 45, 82, 0.85), rgba(15, 29, 53, 0.92));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid rgba(56, 189, 248, 0.15);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(56, 189, 248, 0.24);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 24px rgba(5, 12, 26, 0.4);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(56, 189, 248, 0.18), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.65s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.project-card:hover::before {
+    left: 140%;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
     border-color: #38bdf8;
-    box-shadow: 0 12px 28px rgba(2, 132, 199, 0.25);
+    box-shadow: 0 14px 32px rgba(14, 165, 233, 0.3);
 }
 
 .project-image {
@@ -315,7 +404,7 @@ nav {
 }
 
 .project-info h3 {
-    color: #f8fafc;
+    color: #ffffff;
     margin-bottom: 10px;
 }
 
@@ -329,7 +418,7 @@ nav {
 .btn-small {
     display: inline-block;
     padding: 8px 16px;
-    background-color: transparent;
+    background-color: rgba(56, 189, 248, 0.1);
     color: #38bdf8;
     border: 1px solid #38bdf8;
     border-radius: 5px;
@@ -341,136 +430,6 @@ nav {
 
 .btn-small:hover {
     background-color: #38bdf8;
-    color: #0f172a;
-    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
-}
-
-/* ========================================= */
-/* --- STYLING CONTACT & FOOTER (OPSIONAL) --- */
-/* ========================================= */
-.contact {
-    background-color: #162238;
-    padding: 80px 8%;
-    text-align: center;
-    border-top: 1px solid rgba(56, 189, 248, 0.12);
-}
-
-.contact p {
-    color: #cbd5e1;
-    font-size: 1.1rem;
-    max-width: 550px;
-    margin: 0 auto 30px;
-    line-height: 1.6;
-}
-
-footer {
-    background-color: #0b1120;
-    color: #94a3b8;
-    text-align: center;
-    padding: 20px 8%;
-    font-size: 0.9rem;
-    border-top: 1px solid rgba(56, 189, 248, 0.12);
-}
-/* ========================================================= */
-/* === EFEK VISUAL TAMBAHAN (TEMPEL DI PALING BAWAH CSS) === */
-/* ========================================================= */
-
-/* 1. Pola Titik Halus (Dot-Grid) pada Background Utama */
-body {
-    background-image: radial-gradient(rgba(56, 189, 248, 0.14) 1.2px, transparent 1.2px);
-    background-size: 28px 28px;
-}
-
-/* 2. Pill Badge & Titik Berdenyut pada Teks Sapaan (.greeting) */
-.greeting {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background-color: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 1rem;
-    margin-bottom: 16px;
-}
-
-.greeting::before {
-    content: '';
-    width: 9px;
-    height: 9px;
-    background-color: #38bdf8;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #38bdf8;
-    animation: denyutCahaya 1.8s infinite ease-in-out;
-}
-
-@keyframes denyutCahaya {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.45);
-        opacity: 0.45;
-    }
-}
-
-/* 3. Animasi Melayang Halus pada Foto Profil */
-.hero-image img {
-    animation: melayang 4.5s ease-in-out infinite;
-}
-
-.hero-image img:hover {
-    animation-play-state: paused;
-}
-
-@keyframes melayang {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-/* 4. Efek Kaca (Glassmorphism) & Pendaran Latar pada About & Projects */
-.about {
-    background-color: rgba(22, 34, 56, 0.78);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.projects {
-    background-color: transparent;
-    background-image: radial-gradient(circle at 15% 30%, rgba(14, 165, 233, 0.08), transparent 45%);
-}
-
-/* 5. Efek Kilau Cahaya Melintas pada Kartu Proyek saat di-Hover */
-.project-card {
-    position: relative;
-    background-color: rgba(22, 34, 56, 0.85);
-    backdrop-filter: blur(8px);
-}
-
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(56, 189, 248, 0.14),
-        transparent
-    );
-    transform: skewX(-25deg);
-    transition: left 0.65s ease;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.project-card:hover::before {
-    left: 140%;
+    color: #0e1d35;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
 }
